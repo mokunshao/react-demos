@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="./src/babel.min.js"></script>
+    <script src="./src/react.development.js"></script>
+    <script src="./src/react-dom.development.js"></script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const list = ["a", "b"];
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            list: ["Jack", "Amy"]
+          };
+        }
+        render() {
+          return this.state.list.map(name => <div key={name}>Hello,{name}</div>);
+        }
+      }
+
+      ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
