@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <!-- <script crossorigin  src="react.development.js"></script> -->
+    <!-- <script crossorigin  src="react-dom.development.js"></script> -->
+    <script src="./src/babel.min.js"></script>
+    <script src="./src/react.development.js"></script>
+    <script src="./src/react-dom.development.js"></script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      class Counter extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            number: 0
+          };
+          this.add = this.add.bind(this);
+          this.minus = this.minus.bind(this);
+        }
+        render() {
+          return (
+            <div>
+              <span>{this.state.number}</span>
+              <button onClick={this.add}>+</button>
+              <button onClick={this.minus}>-</button>
+            </div>
+          );
+        }
+        add() {
+          this.setState((state, props) => {
+            return {
+              number: state.number + 1
+            };
+          });
+        }
+        minus() {
+          this.setState((state, props) => {
+            return {
+              number: state.number - 1
+            };
+          });
+        }
+      }
+
+      ReactDOM.render(<Counter />, document.querySelector("#root"));
+    </script>
+  </body>
+</html>
