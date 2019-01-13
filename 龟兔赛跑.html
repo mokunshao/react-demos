@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="./src/babel.js"></script>
+    <script src="./src/react.development.js"></script>
+    <script src="./src/react-dom.development.js"></script>
+    <style>
+      header {
+        display: flex;
+        justify-content: center;
+      }
+      .track {
+        border-bottom: 2px black solid;
+      }
+      article {
+        padding: 30px;
+      }
+      .playground{
+        background: lightcoral;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      function Player1(props) {
+        return (
+          <div>
+            <h2>🐇用时</h2>
+            <div>{props.result}</div>
+          </div>
+        );
+      }
+
+      function Player2(props) {
+        return (
+          <div>
+            <h2>🐢用时</h2>
+            <div>{props.result}</div>
+          </div>
+        );
+      }
+
+      function Judge(props) {
+        return <div>裁判</div>;
+      }
+
+      function Playground(props) {
+        return (
+          <div className="playground">
+            <Track1 success={props.success1}/>
+            <Track2 success={props.success2}/>
+          </div>
+        );
+      }
+
+      class Track1 extends React.Component {
+        constructor(props) {
+          super(props);
+          this.n = 0;
+          this.state = {
+            style: {
+              transform: `translateX(${this.n}%)`
+            }
+          };
+          this.timer = setInterval(() => {
+            this.n += 20;
+            this.setState({
+              style: {
+                transform: `translateX(${this.n}%)`
+              }
+            });
+            if (this.n >= 100) {
+              clearInterval(this.timer);
+              props.success();
+            }
+          }, 1000);
+        }
+        render() {
+          return (
+            <div>
+              <div className="player" style={this.state.style}>
+                🐇
+              </div>
+              <div className="track" />
+            </div>
+          );
+        }
+      }
+
+      class Track2 extends React.Component {
+        constructor(props) {
+          super(props);
+          this.n = 0;
+          this.state = {
+            style: {
+              transform: `translateX(${this.n}%)`
+            }
+          };
+          this.timer = setInterval(() => {
+            this.n += 10;
+            this.setState({
+              style: {
+                transform: `translateX(${this.n}%)`
+              }
+            });
+            if (this.n >= 100) {
+              clearInterval(this.timer);
+              props.success();
+            }
+          }, 1000);
+        }
+        render() {
+          return (
+            <div>
+              <div className="player" style={this.state.style}>
+                🐢
+              </div>
+              <div className="track" />
+            </div>
+          );
+        }
+      }
+
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            result1: 0,
+            result2: 0
+          };
+          this.t0 = new Date();
+          this.success1 = this.success1.bind(this);
+          this.success2 = this.success2.bind(this);
+        }
+        success1() {
+          this.setState(() => ({
+            result1: new Date() - this.t0
+          }));
+        }
+        success2() {
+          this.setState(() => ({
+            result2: new Date() - this.t0
+          }));
+        }
+        render() {
+          return (
+            <article>
+              <header>
+                <Player1 result={this.state.result1} />
+                <Judge />
+                <Player2 result={this.state.result2} />
+              </header>
+              <Playground success1={this.success1} success2={this.success2}/>
+            </article>
+          );
+        }
+      }
+
+      ReactDOM.render(<App />, document.querySelector("#root"));
+    </script>
+  </body>
+</html>
