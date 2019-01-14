@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="./src/babel.js"></script>
+    <script src="./src/react.development.js"></script>
+    <script src="./src/react-dom.development.js"></script>
+    <script src="./src/redux.js"></script>
+    <style>
+      body,
+      .center {
+        display: flex;
+        justify-content: center;
+      }
+
+      .app {
+        text-align: center;
+      }
+      .root,
+      .dad,
+      .son {
+        border: 1px solid black;
+        padding: 5px;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      let createStore = Redux.createStore;
+      function reducer(state = 0, action) {
+        switch (action.type) {
+          case "INCREMENT":
+            return state + 1;
+          case "DECREMENT":
+            return state - 1;
+          default:
+            return state;
+        }
+      }
+      let store = createStore(reducer);
+
+      store.subscribe(() => {
+        ReactDOM.render(<App />, document.querySelector("#root"));
+      });
+
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+        add() {
+          store.dispatch({ type: "INCREMENT" });
+        }
+        minus() {
+          store.dispatch({ type: "DECREMENT" });
+        }
+        render() {
+          return (
+            <div className="root">
+              <div className="app">
+                <div>App</div>
+                <div>
+                  <span>{store.getState()}</span>
+                  <button onClick={this.add}>+</button>
+                  <button onClick={this.minus}>-</button>
+                </div>
+              </div>
+              <div className="center">
+                <Dad1 />
+                <Dad2 />
+              </div>
+            </div>
+          );
+        }
+      }
+
+      class Dad1 extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+        add() {
+          store.dispatch({ type: "INCREMENT" });
+        }
+        minus() {
+          store.dispatch({ type: "DECREMENT" });
+        }
+        render() {
+          return (
+            <div className="dad">
+              <div>
+                <div>爸爸1</div>
+                <div>
+                  <span>{store.getState()}</span>
+                  <button onClick={this.add}>+</button>
+                  <button onClick={this.minus}>-</button>
+                </div>
+              </div>
+              <Son1 />
+              <Son2 />
+            </div>
+          );
+        }
+      }
+
+      class Dad2 extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+        add() {
+          store.dispatch({ type: "INCREMENT" });
+        }
+        minus() {
+          store.dispatch({ type: "DECREMENT" });
+        }
+        render() {
+          return (
+            <div className="dad">
+              <div>
+                <div>爸爸2</div>
+                <div>
+                  <span>{store.getState()}</span>
+                  <button onClick={this.add}>+</button>
+                  <button onClick={this.minus}>-</button>
+                </div>
+              </div>
+              <Son3 />
+              <Son4 />
+            </div>
+          );
+        }
+      }
+
+      class Son1 extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+        add() {
+          store.dispatch({ type: "INCREMENT" });
+        }
+        minus() {
+          store.dispatch({ type: "DECREMENT" });
+        }
+        render() {
+          return (
+            <div className="son">
+              <div>儿子1</div>
+              <div>
+                <span>{store.getState()}</span>
+                <button onClick={this.add}>+</button>
+                <button onClick={this.minus}>-</button>
+              </div>
+            </div>
+          );
+        }
+      }
+
+      class Son2 extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+        add() {
+          store.dispatch({ type: "INCREMENT" });
+        }
+        minus() {
+          store.dispatch({ type: "DECREMENT" });
+        }
+        render() {
+          return (
+            <div className="son">
+              <div>儿子2</div>
+              <div>
+                <span>{store.getState()}</span>
+                <button onClick={this.add}>+</button>
+                <button onClick={this.minus}>-</button>
+              </div>
+            </div>
+          );
+        }
+      }
+
+      class Son3 extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+        add() {
+          store.dispatch({ type: "INCREMENT" });
+        }
+        minus() {
+          store.dispatch({ type: "DECREMENT" });
+        }
+        render() {
+          return (
+            <div className="son">
+              <div>儿子3</div>
+              <div>
+                <span>{store.getState()}</span>
+                <button onClick={this.add}>+</button>
+                <button onClick={this.minus}>-</button>
+              </div>
+            </div>
+          );
+        }
+      }
+
+      class Son4 extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+        add() {
+          store.dispatch({ type: "INCREMENT" });
+        }
+        minus() {
+          store.dispatch({ type: "DECREMENT" });
+        }
+        render() {
+          return (
+            <div className="son">
+              <div>儿子4</div>
+              <div>
+                <span>{store.getState()}</span>
+                <button onClick={this.add}>+</button>
+                <button onClick={this.minus}>-</button>
+              </div>
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(<App />, document.querySelector("#root"));
+    </script>
+  </body>
+</html>
