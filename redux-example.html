@@ -31,7 +31,6 @@
   <body>
     <div id="root"></div>
     <script type="text/babel">
-      let createStore = Redux.createStore;
       function reducer(state = 0, action) {
         switch (action.type) {
           case "INCREMENT":
@@ -42,7 +41,7 @@
             return state;
         }
       }
-      let store = createStore(reducer);
+      let store = Redux.createStore(reducer);
 
       store.subscribe(() => {
         ReactDOM.render(<App />, document.querySelector("#root"));
