@@ -16,15 +16,11 @@
     <script type="text/babel">
       const Provider = ReactRedux.Provider;
 
-      function reducer(state, action) {
-        if (state === undefined) {
-          return { n: 0 };
+      function reducer(state = { n: 0 }, action) {
+        if (action.type === "add") {
+          return { n: state.n + action.payload };
         } else {
-          if (action.type === "add") {
-            return { n: state.n + action.payload };
-          } else {
-            return state;
-          }
+          return state;
         }
       }
 
@@ -59,7 +55,11 @@
               dispatch({ type: "add", payload: 1 });
             }
           },
-          addAsync: () => dispatch({ type: "add", payload: 1 })
+          addAsync: () => {
+            setTimeout(() => {
+              dispatch({ type: "add", payload: 1 });
+            }, 2000);
+          }
         };
       }
 
