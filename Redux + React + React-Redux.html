@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="./src/babel.js"></script>
+    <script src="./src/react.development.js"></script>
+    <script src="./src/react-dom.development.js"></script>
+    <script src="./src/redux.js"></script>
+    <script src="./src/react-redux.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const Provider = ReactRedux.Provider;
+
+      function reducer(state, action) {
+        if (state === undefined) {
+          return { n: 0 };
+        } else {
+          if (action.type === "add") {
+            return { n: state.n + action.payload };
+          } else {
+            return state;
+          }
+        }
+      }
+
+      const store = Redux.createStore(reducer);
+
+      class App extends React.Component {
+        render() {
+          return (
+            <div>
+              <span>{this.props.n}</span>
+              <button onClick={this.props.add1}>+1</button>
+              <button onClick={this.props.add2}>+2</button>
+              <button onClick={this.props.addIfOdd}>单数时+1</button>
+              <button onClick={this.props.addAsync}>2秒后+1</button>
+            </div>
+          );
+        }
+      }
+
+      function mapStateToProps(state) {
+        return {
+          n: state.n
+        };
+      }
+
+      function mapDispatchToProps(dispatch) {
+        return {
+          add1: () => dispatch({ type: "add", payload: 1 }),
+          add2: () => dispatch({ type: "add", payload: 2 }),
+          addIfOdd: () => {
+            if (store.getState().n % 2 !== 0) {
+              dispatch({ type: "add", payload: 1 });
+            }
+          },
+          addAsync: () => dispatch({ type: "add", payload: 1 })
+        };
+      }
+
+      App = ReactRedux.connect(
+        mapStateToProps,
+        mapDispatchToProps
+      )(App);
+
+      ReactDOM.render(
+        <Provider store={store}>
+          <App />
+        </Provider>,
+        document.querySelector("#root")
+      );
+    </script>
+  </body>
+</html>
