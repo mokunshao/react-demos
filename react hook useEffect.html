@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="./src/babel.js"></script>
+    <script src="./src/react.development.js"></script>
+    <script src="./src/react-dom.development.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="root2"></div>
+    <script type="text/babel">
+      function App() {
+        const [count, setCount] = React.useState(0);
+        React.useEffect(() => {
+          document.querySelector("#root2").innerText = count;
+        });
+        const add = () => {
+          setCount(count + 1);
+        };
+        const minus = () => {
+          setCount(count - 1);
+        };
+        return (
+          <div>
+            <div>{count}</div>
+            <button onClick={add}>+1</button>
+            <button onClick={minus}>-1</button>
+          </div>
+        );
+      }
+      ReactDOM.render(<App />, document.querySelector("#root"));
+    </script>
+  </body>
+</html>
