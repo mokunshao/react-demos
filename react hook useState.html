@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="./src/babel.js"></script>
+    <script src="./src/react.development.js"></script>
+    <script src="./src/react-dom.development.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      function App() {
+        const [count, setCount] = React.useState(0);
+        const [user, setUser] = React.useState({
+          name: "Ken",
+          age: 18,
+          hobbies: ["run", "eat"]
+        });
+        const add = () => {
+          setCount(count + 1);
+        };
+        const minus = () => {
+          setCount(count - 1);
+        };
+        const getOld = () => {
+          setUser({ ...user, age: user.age + 1 });
+        };
+        const addHobby = () => {
+          setUser({ ...user, hobbies: [...user.hobbies, "newHobby"] });
+        };
+        return (
+          <div>
+            <div>{count}</div>
+            <button onClick={add}>+1</button>
+            <button onClick={minus}>-1</button>
+            <div>
+              {user.name},{user.age}
+            </div>
+            <div>{user.hobbies.join(",")}</div>
+            <button onClick={getOld}>+1</button>
+            <button onClick={addHobby}>add hobby</button>
+          </div>
+        );
+      }
+      ReactDOM.render(<App />, document.querySelector("#root"));
+    </script>
+  </body>
+</html>
