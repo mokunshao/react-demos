@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="./src/babel.js"></script>
+    <script src="./src/react.development.js"></script>
+    <script src="./src/react-dom.development.js"></script>
+    <script src="./src/react-router-dom.js"></script>
+    <style>
+      .App {
+        font-family: sans-serif;
+        text-align: center;
+      }
+      .box {
+        height: 100px;
+        box-shadow: 0 0 5px black;
+        margin: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      // 本 demo 需要搭配 http-server 使用
+
+      let { Link, BrowserRouter, Route } = ReactRouterDOM;
+
+      function Box1() {
+        return <div className="box">注册</div>;
+      }
+
+      function Box2() {
+        return <div className="box">登录</div>;
+      }
+
+      function Welcome() {
+        return <div className="box">欢迎</div>;
+      }
+
+      function App() {
+        return <div className="box">App</div>;
+      }
+
+      ReactDOM.render(
+        <BrowserRouter>
+          <div className="App">
+            <div>
+              <Link to="/">
+                <button>首页</button>
+              </Link>
+              <Link to="/login">
+                <button>登录</button>
+              </Link>
+              <Link to="/signup">
+                <button>注册</button>
+              </Link>
+              <Link to="/welcome">
+                <button>欢迎</button>
+              </Link>
+            </div>
+            <Route path="/" exact component={App} />
+            <Route path="/login" component={Box2} />
+            <Route path="/signup" component={Box1} />
+            <Route path="/welcome" component={Welcome} />
+          </div>
+        </BrowserRouter>,
+        document.getElementById("root")
+      );
+    </script>
+  </body>
+</html>
